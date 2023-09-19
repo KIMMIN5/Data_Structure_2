@@ -1,1 +1,1 @@
-![Uploading 스크린샷 2023-09-19 오전 10.47.46.png…]()
+/Users/kimmo/Desktop/p4.png 
