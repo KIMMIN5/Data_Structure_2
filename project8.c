@@ -1,41 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 200
+#define MAX 200  // 힙의 최대 크기 정의
 
+// 허프만 트리의 트리 노드 정의
 typedef struct treeNode {
-    int weight;
-    char ch;
-    struct treeNode *left, *right;
+    int weight;   // 문자의 빈도 또는 가중치
+    char ch;      // 이 노드에 대응하는 문자
+    struct treeNode *left, *right; // 노드의 왼쪽과 오른쪽 자식
 } TreeNode;
 
+// 힙 연산을 위한 원소 구조체 정의
 typedef struct Element {
-    TreeNode *ptree;
-    char ch;
-    int key;
+    TreeNode *ptree; // 트리노드에 대한 포인터
+    char ch;         // 트리노드의 문자
+    int key;         // 힙 연산을 위한 키, 주로 트리노드의 가중치
 } element;
 
+// 힙 연산을 위한 힙 구조체 정의
 typedef struct heapType {
-    element heap[MAX];
-    int heapSize;
+    element heap[MAX];  // 힙의 원소를 저장할 배열
+    int heapSize;       // 현재 힙의 크기
 } HeapType;
 
+// 오류 메시지를 출력하는 함수
 void error(char *message) {
     fprintf(stderr, "%s", message);
 }
 
+// 새로운 힙을 생성하고 그 포인터를 반환하는 함수
 HeapType *create() {
     return (HeapType*)malloc(sizeof(HeapType));
 }
 
+// 힙의 크기를 0으로 초기화하는 함수
 void init(HeapType *h) {
     h->heapSize = 0;
 }
 
+// 힙이 가득 찼는지 검사하는 함수
 int is_full(HeapType *h) {
     return (h->heapSize == MAX - 1);
 }
 
+// 힙이 비어 있는지 검사하는 함수
 int is_empty(HeapType *h) {
     return (h->heapSize == 0);
 }
@@ -48,6 +56,7 @@ void print_heap(HeapType *h) {
     printf("\n");
 }
 
+// 최소 힙에 원소를 삽입하는 함수
 void insert_min_heap(HeapType *h, element item) {
     int i;
     i = ++h->heapSize;
@@ -60,6 +69,7 @@ void insert_min_heap(HeapType *h, element item) {
     print_heap(h);
 }
 
+// 최소 힙에서 최소 원소를 삭제하고 반환하는 함수
 element delete_min_heap(HeapType *h) {
     element item, temp;
     int parent = 1;
@@ -82,6 +92,7 @@ element delete_min_heap(HeapType *h) {
     return item;
 }
 
+// 새로운 트리 노드를 생성하는 함수
 TreeNode *make_tree(TreeNode *left, TreeNode *right) {
     TreeNode *node = (TreeNode*)malloc(sizeof(TreeNode));
     node->left = left;
@@ -89,6 +100,7 @@ TreeNode *make_tree(TreeNode *left, TreeNode *right) {
     return node;
 }
 
+// 트리를 제거하는 함수
 void destroy_tree(TreeNode *root) {
     if(!root) return;
     destroy_tree(root->left);
@@ -96,10 +108,12 @@ void destroy_tree(TreeNode *root) {
     free(root);
 }
 
+// 노드가 잎(leaf)인지 검사하는 함수
 int is_leaf(TreeNode *root) {
     return !(root->left) && !(root->right);
 }
 
+// 허프만 코드를 출력하기 위한 배열을 출력하는 함수
 void print_array(int codes[], int n) {
     for(int i=0; i<n; i++) {
         printf("%d ", codes[i]);
@@ -107,6 +121,7 @@ void print_array(int codes[], int n) {
     printf("\n");
 }
 
+// 허프만 코드를 출력하는 함수
 void print_codes(TreeNode *root, int codes[], int top) {
     if(root->left) {
         codes[top] = 1;
@@ -124,6 +139,7 @@ void print_codes(TreeNode *root, int codes[], int top) {
     }
 }
 
+// 주요 허프만 코드 생성 함수
 void huffman_tree(int freq[], char ch_list[], int n) {
     HeapType *h;
     TreeNode *node, *x;
@@ -134,6 +150,7 @@ void huffman_tree(int freq[], char ch_list[], int n) {
     h = create();
     init(h);
 
+    // 문자와 빈도로 힙을 초기화
     for(int i=0; i<n; i++) {
         node = make_tree(NULL, NULL);
         e.ch = node->ch = ch_list[i];
@@ -142,6 +159,7 @@ void huffman_tree(int freq[], char ch_list[], int n) {
         insert_min_heap(h, e);
     }
 
+    // 허프만 트리를 만드는 과정
     for(int i=1; i<n; i++) {
         e1 = delete_min_heap(h);
         e2 = delete_min_heap(h);
@@ -158,6 +176,7 @@ void huffman_tree(int freq[], char ch_list[], int n) {
     free(h);
 }
 
+// 힙 정렬 함수
 void heap_sort(int arr[], int n) {
     HeapType *h = create();
     init(h);
@@ -177,17 +196,12 @@ void heap_sort(int arr[], int n) {
 }
 
 int main() {
-    int arr[] = {34, 12, 76, 59, 32, 55, 88, 26, 16, 79, 34, 85, 29, 78, 41, 56, 86};
-    int n = sizeof(arr) / sizeof(int);
-    heap_sort(arr, n);
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
+    char ch_list[] = { 'A', 'B', 'C', 'D', 'E', 'F' };
+    int freq[] = { 45, 13, 12, 16, 9, 5 };
+    int n = 6;
 
-    char ch_list[] = {'a', 'e', 'i', 'o', 'u', 's', 't'};
-    int freq[] = {10, 15, 12, 3, 4, 13, 1};
-    huffman_tree(freq, ch_list, 7);
+    printf("Huffman coding\n");
+    huffman_tree(freq, ch_list, n);
 
     return 0;
 }
