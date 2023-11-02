@@ -144,6 +144,7 @@ Edge delete_heap(HeapType *h) {
     return item;
 }
 
+// MinHeap을 사용한 Kruskal MST 알고리즘 함수
 void kruskal_minheap(GraphType *g) {
     int edge_accepted = 0;
     int uset, vset;
