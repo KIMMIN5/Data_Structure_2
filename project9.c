@@ -98,12 +98,13 @@ int dequeue(QueueType *qptr) {
     return(qptr -> data[qptr -> front]) ;
     }
 }
-
+/*
 // 인접행렬로 표현한 그래프의 자료구조 정의
 typedef struct GraphType_MAT {
     int n; // 정점의 개수
     int adj_mat[MAX_VERTEXS][MAX_VERTEXS]; // 인접행렬
 } graphType_mat;
+*/
 
 typedef struct GraphNode {
     int vertex; // 정점의 번호
@@ -144,8 +145,18 @@ void insert_edge(graphType_list *g, int u, int v) {
     }
     node = (graphNode*)malloc(sizeof(graphNode));
     node -> vertex = v;
-    node -> link = g->adj_list[u];
-    g -> adj_list[u] = node;
+    node -> link = NULL;
+
+    if(g->adj_list[u] == NULL) {
+        g->adj_list[u] = node;
+    }
+    else {
+        graphNode *current = g->adj_list[u];
+        while(current -> link != NULL) {
+            current = current -> link;
+        }
+        current -> link = node;
+    }
 }
 
 // DFS 함수
@@ -159,7 +170,7 @@ void dfs_list(graphType_list *g, int v, int key) {
 
     while (!is_emptys(&s)) {
         node = pop(&s);
-        if (!visited[node]) {
+        if (visited[node] == 0) {
             visited[node] = 1;
             printf("%d ", node);  // 노드 방문 출력
 
@@ -216,7 +227,7 @@ graphType_list *makeGraph() {
     }
 
     // 각 정점에 대한 인접 정점 추가
-    int edges[11][6] = {
+    int edges[11][7] = {
         {2, 5, 6, 9, -1},  // 0
         {4, 5, 7, 10, -1}, // 1
         {0, 3, 4, -1},     // 2
