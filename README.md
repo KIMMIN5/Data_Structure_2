@@ -1,4 +1,4 @@
 # Data_Structure_2
-<img width="1025" alt="스크린샷 2023-11-23 오전 10 25 50" src="https://github.com/KIMMIN5/Data_Structure_2/assets/121488861/067c90fd-9837-46a5-98db-b0960a1e7521">
-<img width="1025" alt="스크린샷 2023-11-23 오전 10 26 04" src="https://github.com/KIMMIN5/Data_Structure_2/assets/121488861/201697ae-1d0a-4286-b511-219a94486d9e">
-<img width="1025" alt="스크린샷 2023-11-23 오전 10 25 56" src="https://github.com/KIMMIN5/Data_Structure_2/assets/121488861/22b1424a-dc1a-4da5-9137-a2436cce27ed">
+<img width="1096" alt="스크린샷 2023-11-23 오전 10 27 54" src="https://github.com/KIMMIN5/Data_Structure_2/assets/121488861/4701d132-5821-4997-a0f8-140cdebf106f">
+<img width="1100" alt="스크린샷 2023-11-23 오전 10 28 07" src="https://github.com/KIMMIN5/Data_Structure_2/assets/121488861/05680089-957f-4ee9-878f-35ce3cc537ed">
+<img width="1100" alt="스크린샷 2023-11-23 오전 10 28 15" src="https://github.com/KIMMIN5/Data_Structure_2/assets/121488861/e2c6847b-81bf-4ece-83b1-108e499d12b4">
