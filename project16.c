@@ -50,28 +50,13 @@ void merge_sort_rec(int list[], int left, int right, int show, int *move_cnt, in
     int mid;
     if (left < right) {
         mid = (left + right) / 2;
-
-        // 분할 과정을 시작하기 전의 배열 상태 출력
-        if (show == 1) {
-            printf("Before dividing [%d, %d]: ", left, right);
-            print_status(list + left, right - left + 1);
-        }
-
         merge_sort_rec(list, left, mid, show, move_cnt, comp_cnt);
         merge_sort_rec(list, mid + 1, right, show, move_cnt, comp_cnt);
-
-        // 병합하기 전의 배열 상태 출력
-        if (show == 1) {
-            printf("Before merging [%d, %d]: ", left, right);
-            print_status(list + left, right - left + 1);
-        }
-
         merge(list, left, mid, right, move_cnt, comp_cnt);
 
         // 병합 후의 배열 상태 출력
         if (show == 1) {
-            printf("After merging [%d, %d]: ", left, right);
-            print_status(list + left, right - left + 1);
+            print_status(list, 20);
         }
     }
 }
